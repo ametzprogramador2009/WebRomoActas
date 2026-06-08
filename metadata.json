@@ -1,0 +1,6 @@
+{
+  "name": "Estadísticas de Fútbol",
+  "description": "Visualizador interactivo de estadísticas de fútbol de la Liga Vasca Juvenil a partir de datos en tiempo real de Google Sheets con tabla interactiva y gráficos analíticos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
