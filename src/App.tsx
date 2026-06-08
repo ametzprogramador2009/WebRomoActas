@@ -31,6 +31,25 @@ export default function App() {
   const [lastSync, setLastSync] = useState<string | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  // Theme state & synchronization
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const storedTheme = localStorage.getItem('theme_is_dark');
+    return storedTheme === null ? true : storedTheme === 'true';
+  });
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('theme_is_dark', String(isDarkMode));
+  }, [isDarkMode]);
+
+  const handleToggleDarkMode = useCallback(() => {
+    setIsDarkMode(prev => !prev);
+  }, []);
+
   // Spreadsheet URL state with localStorage backup
   const DEFAULT_SPREADSHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1nQdo8ojEXAIM2HnflujqtEmYnvWdQTf3BQAO9Nu5DLU/export?format=csv';
   const [spreadsheetUrl, setSpreadsheetUrl] = useState(() => {
@@ -134,6 +153,8 @@ export default function App() {
         onRefresh={handleReload} 
         isRefreshed={isRefreshing} 
         lastUpdated={lastSync} 
+        isDarkMode={isDarkMode}
+        onToggleDarkMode={handleToggleDarkMode}
       />
 
       {/* Main Content Body */}
